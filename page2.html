@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page 2 - Hover Price & Number</title>
+<style>
+body {
+    margin:0;
+    font-family: Consolas, monospace;
+    background:black;
+    color:#00ffcc;
+    overflow:hidden;
+    position:relative;
+}
+
+/* Neon subtle background */
+body::before {
+    content:"";
+    position:fixed;
+    width:200%;
+    height:200%;
+    background: linear-gradient(45deg,#00ffcc,#0066ff,#ff00ff,#00ffcc);
+    opacity:0.05;
+    animation: moveBg 20s linear infinite alternate;
+    z-index:-1;
+}
+@keyframes moveBg {
+    0% {transform:translate(0,0);}
+    100% {transform:translate(-50%,-50%);}
+}
+
+/* Particles */
+canvas {
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* Grid container */
+.grid {
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+    padding:40px;
+    justify-items:center;
+}
+
+/* Neon Boxes */
+.box {
+    width:120px;
+    height:140px;
+    background: rgba(0,255,204,0.1);
+    border:2px solid #00ffcc;
+    box-shadow:0 0 25px #00ffcc, 0 0 50px #ff00ff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    font-size:16px;
+    border-radius:15px;
+    transition:0.3s;
+    cursor:pointer;
+    position:relative;
+}
+
+/* Hover Neon glow */
+.box:hover {
+    transform:scale(1.2);
+    box-shadow:0 0 50px #00ffcc, 0 0 100px #ff00ff;
+}
+
+/* Price and Number hidden by default, show on hover */
+.price, .number {
+    opacity:0;
+    transition:0.3s;
+}
+.box:hover .price,
+.box:hover .number {
+    opacity:1;
+}
+
+/* Price tooltip */
+.price {
+    position:absolute;
+    top:10px;
+    text-align:center;
+    font-size:14px;
+    color:#ff00ff;
+}
+
+/* Number in middle */
+.number {
+    font-size:24px;
+    font-weight:bold;
+    color:#00ffcc;
+    margin-top:20px;
+}
+
+/* Test text under number (always visible) */
+.test {
+    font-size:14px;
+    color:#ff00ff;
+    margin-top:5px;
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="grid">
+    <div class="box">
+        <div class="price">Price</div>
+        <div class="number">10</div>
+        <div class="test">Test 1</div>
+    </div>
+    <div class="box">
+        <div class="price">Price</div>
+        <div class="number">20</div>
+        <div class="test">Test 2</div>
+    </div>
+    <div class="box">
+        <div class="price">Price</div>
+        <div class="number">30</div>
+        <div class="test">Test 3</div>
+    </div>
+    <div class="box">
+        <div class="price">Price</div>
+        <div class="number">40</div>
+        <div class="test">Test 4</div>
+    </div>
+    <div class="box">
+        <div class="price">Price</div>
+        <div class="number">50</div>
+        <div class="test">Test 5</div>
+    </div>
+</div>
+
+<script>
+// Particles
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles=[];
+for(let i=0;i<100;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        size:Math.random()*2,
+        speedY:Math.random()*0.5 + 0.2
+    });
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        p.y+=p.speedY;
+        if(p.y>canvas.height){
+            p.y=0;
+            p.x=Math.random()*canvas.width;
+        }
+        ctx.fillStyle="#00ffcc";
+        ctx.fillRect(p.x,p.y,p.size,p.size);
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>

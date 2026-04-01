@@ -204,9 +204,9 @@ function animate(){
 }
 animate();
 
-// Button alert
+// Button opens local page
 function sayHi(){
-    alert("🔥 Welcome Vicitor 🔥");
+    window.location.href = "page2.html"; // يفتح الصفحة بس عند الضغط
 }
 
 // Visitor counter
@@ -233,11 +233,11 @@ function askAI(){
     else if(input.includes("what do you do") || input.includes("job")){
         response = "I'm a programmer 💻 and gamer 🎮";
     }
-	    else if(input.includes("الاخوات") || input.includes("brothers")){
+    else if(input.includes("الاخوات") || input.includes("brothers")){
         response = "Mohamed [Marvel]  |  mahmoued [7OUDA]";
     }
-	    else if(input.includes("مساعده") || input.includes("help")){
-        response = "الاوامر  عمرك  | اسمك  | الاخوات";
+    else if(input.includes("مساعده") || input.includes("help")){
+        response = "الاوامر  عمرك  | اسمك";
     }
     else if(input.includes("contact")){
         response = "You can contact me from the social icons above 😉";
